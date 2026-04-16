@@ -26,6 +26,7 @@ import {
   ZoomOut,
   Maximize2,
   Minus,
+  Contrast,
 } from 'lucide-react';
 
 const PentagonIcon = () => (
@@ -99,18 +100,24 @@ function ActionButton({ icon, label, onClick, disabled }: ActionButtonProps) {
 }
 
 export function Toolbar() {
-  const { theme, setTheme, setShowSidebar, showSidebar, undo, redo, historyIndex, history, zoomIn, zoomOut, zoomFit, canvas, tool, penColor, setPenColor } = useStore();
+  const { theme, setTheme, brightness, setBrightness, setShowSidebar, showSidebar, undo, redo, historyIndex, history, zoomIn, zoomOut, zoomFit, canvas, tool, penColor, setPenColor } = useStore();
 
   const toggleSidebar = (name: string) => {
     setShowSidebar(showSidebar === name ? null : name);
   };
 
   const toggleTheme = () => {
-    const themes: ('light' | 'dark' | 'warm')[] = ['light', 'dark', 'warm'];
+    const themes: ('light' | 'dark' | 'warm' | 'forest' | 'ocean' | 'sunset')[] = ['light', 'dark', 'warm', 'forest', 'ocean', 'sunset'];
     const currentIndex = themes.indexOf(theme);
     const nextIndex = (currentIndex + 1) % themes.length;
     setTheme(themes[nextIndex]);
     document.body.setAttribute('data-theme', themes[nextIndex]);
+  };
+
+  const adjustBrightness = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(e.target.value);
+    setBrightness(value);
+    document.body.style.setProperty('--brightness', String(value));
   };
 
   const isPenTool = tool === 'pen';
@@ -209,6 +216,19 @@ export function Toolbar() {
         <button className="zoom-btn" onClick={zoomFit}>
           <Maximize2 size={16} />
         </button>
+      </div>
+
+      <div className="zoom-controls" style={{ position: 'static', marginLeft: '8px' }}>
+        <Contrast size={14} style={{ color: 'var(--text-secondary)' }} />
+        <input
+          type="range"
+          min="0.5"
+          max="1.5"
+          step="0.05"
+          value={brightness}
+          onChange={adjustBrightness}
+          style={{ width: '60px', cursor: 'pointer' }}
+        />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 export type NodeType = 'root' | 'idea' | 'action' | 'note';
 export type ShapeType = 'rect' | 'circle' | 'diamond' | 'triangle' | 'text' | 'pentagon' | 'hexagon' | 'star5' | 'star6' | 'arrowUp' | 'arrowDown' | 'arrowLeft' | 'arrowRight' | 'line';
 export type Tool = 'select' | 'hand' | 'rect' | 'circle' | 'diamond' | 'triangle' | 'pentagon' | 'hexagon' | 'star5' | 'star6' | 'arrowUp' | 'arrowDown' | 'arrowLeft' | 'arrowRight' | 'line' | 'textInput' | 'pen' | 'connect';
-export type Theme = 'light' | 'dark' | 'warm';
+export type Theme = 'light' | 'dark' | 'warm' | 'forest' | 'ocean' | 'sunset';
 
 export interface Point {
   x: number;

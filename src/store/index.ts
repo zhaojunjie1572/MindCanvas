@@ -10,6 +10,7 @@ interface Store {
   selectedId: string | null;
   tool: Tool;
   theme: Theme;
+  brightness: number;
   canvas: CanvasState;
   penColor: string;
 
@@ -25,6 +26,7 @@ interface Store {
 
   setTool: (tool: Tool) => void;
   setTheme: (theme: Theme) => void;
+  setBrightness: (brightness: number) => void;
   setSelected: (id: string | null) => void;
   setShowSidebar: (sidebar: string | null) => void;
   setEditingNode: (id: string | null) => void;
@@ -69,6 +71,7 @@ export const useStore = create<Store>()(
       selectedId: null,
       tool: 'select',
       theme: 'light',
+      brightness: 1,
       canvas: { zoom: 1, panX: 0, panY: 0 },
       penColor: '#1a1a2e',
       isDrawing: false,
@@ -81,6 +84,7 @@ export const useStore = create<Store>()(
 
       setTool: (tool) => set({ tool }),
       setTheme: (theme) => set({ theme }),
+      setBrightness: (brightness) => set({ brightness }),
       setSelected: (id) => set({ selectedId: id }),
       setShowSidebar: (sidebar) => set({ showSidebar: sidebar }),
       setEditingNode: (id) => set({ editingNodeId: id }),
@@ -273,6 +277,7 @@ export const useStore = create<Store>()(
         penPaths: state.penPaths,
         canvas: state.canvas,
         theme: state.theme,
+        brightness: state.brightness,
       }),
     }
   )
