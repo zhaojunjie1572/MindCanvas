@@ -14,4 +14,6 @@ RUN npm run build
 RUN npm install -g serve
 
 EXPOSE 3000
-CMD ["serve", "-s", "dist", "-l", "3000"]
+
+# --single 参数支持 SPA 路由
+CMD ["serve", "-s", "dist", "-l", "3000", "--single"]
