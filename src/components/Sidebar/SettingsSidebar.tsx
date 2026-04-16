@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { GitHubSync } from './GitHubSync';
 
 interface ApiConfig {
   url: string;
@@ -171,6 +172,8 @@ export function SettingsSidebar() {
           <p style={{ marginTop: '8px' }}>3. 配置后 AI 功能（生成导图、扩展内容）即可使用</p>
         </div>
       </div>
+
+      <GitHubSync />
     </>
   );
 }
