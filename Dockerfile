@@ -13,7 +13,9 @@ RUN npm run build
 # 使用 serve 来提供静态文件
 RUN npm install -g serve
 
+# Zeabur 需要监听 0.0.0.0 和 PORT 环境变量
+ENV PORT=3000
 EXPOSE 3000
 
-# --single 参数支持 SPA 路由
-CMD ["serve", "-s", "dist", "-l", "3000", "--single"]
+# -L 参数监听所有接口，使用环境变量 PORT
+CMD serve -s dist -l tcp://0.0.0.0:$PORT --single
