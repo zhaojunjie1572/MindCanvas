@@ -60,12 +60,16 @@ export function GitHubSync() {
     setSyncState((prev) => ({ ...prev, status: 'syncing', message: '同步中...' }));
 
     try {
+      const apiConfigStr = localStorage.getItem('mindcanvas_api');
+      const apiConfig = apiConfigStr ? JSON.parse(apiConfigStr) : null;
+
       const data = {
         nodes: store.nodes,
         connections: store.connections,
         penPaths: store.penPaths,
         canvas: store.canvas,
         theme: store.theme,
+        apiConfig,
         updatedAt: Date.now(),
       };
 
@@ -147,7 +151,7 @@ export function GitHubSync() {
       if (response.ok) {
         const gist = await response.json();
         const file = gist.files[GIST_FILENAME];
-        if (file) {
+if (file) {
           const data = JSON.parse(file.content);
 
           store.loadData(data.nodes || [], data.connections || [], data.penPaths || []);
@@ -158,6 +162,9 @@ export function GitHubSync() {
           if (data.theme) {
             useStore.setState({ theme: data.theme });
             document.body.setAttribute('data-theme', data.theme);
+          }
+          if (data.apiConfig) {
+            localStorage.setItem('mindcanvas_api', JSON.stringify(data.apiConfig));
           }
 
           saveToLocal({ gistId });
